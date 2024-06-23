@@ -127,6 +127,7 @@ vim.opt.smartcase = true
 
 -- Keep signcolumn on by default
 vim.opt.signcolumn = 'yes'
+-- vim.opt.termguicolors = 'yes'
 
 -- Decrease update time
 vim.opt.updatetime = 250
@@ -176,20 +177,36 @@ vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagn
 vim.keymap.set('t', '<Esc><Esc>', '<C-\\><C-n>', { desc = 'Exit terminal mode' })
 
 -- TIP: Disable arrow keys in normal mode
--- vim.keymap.set('n', '<left>', '<cmd>echo "Use h to move!!"<CR>')
--- vim.keymap.set('n', '<right>', '<cmd>echo "Use l to move!!"<CR>')
--- vim.keymap.set('n', '<up>', '<cmd>echo "Use k to move!!"<CR>')
--- vim.keymap.set('n', '<down>', '<cmd>echo "Use j to move!!"<CR>')
+vim.keymap.set('n', '<left>', '<cmd>echo "Use h to move!!"<CR>')
+vim.keymap.set('n', '<right>', '<cmd>echo "Use l to move!!"<CR>')
+vim.keymap.set('n', '<up>', '<cmd>echo "Use k to move!!"<CR>')
+vim.keymap.set('n', '<down>', '<cmd>echo "Use j to move!!"<CR>')
 
 -- Keybinds to make split navigation easier.
 --  Use CTRL+<hjkl> to switch between windows
 --
 --  See `:help wincmd` for a list of all window commands
 vim.keymap.set('n', '<C-h>', '<C-w><C-h>', { desc = 'Move focus to the left window' })
-vim.keymap.set('n', '<C-l>', '<C-w><C-l>', { desc = 'Move focus to the right window' })
 vim.keymap.set('n', '<C-j>', '<C-w><C-j>', { desc = 'Move focus to the lower window' })
+vim.keymap.set('n', '<C-l>', '<C-w><C-l>', { desc = 'Move focus to the right window' })
 vim.keymap.set('n', '<C-k>', '<C-w><C-k>', { desc = 'Move focus to the upper window' })
 
+-- Custom By Gr%1m
+
+-- vim.keymap.set('n', '<C-n>', ':Neotree<CR>', { desc = 'Neovim Files Tree' })
+vim.keymap.set('n', '<C-s>', '<Esc>:w<CR>', { desc = 'Save The File and Return to Normal' })
+vim.keymap.set('i', '<C-s>', '<Esc>:w<CR>', { desc = 'Save The File and Return to Normal' })
+-- Custom Save ShortcutKeys
+
+vim.keymap.set('i', '<C-b>', '<Left>', { desc = 'Move the mouse backwards' })
+vim.keymap.set('i', '<C-j>', '<Down>', { desc = 'Move the mouse upwards  ' })
+vim.keymap.set('i', '<C-f>', '<Right>', { desc = 'Move the mouse forwards ' })
+vim.keymap.set('i', '<C-k>', '<Up>', { desc = 'Move the mouse downwards' })
+
+vim.keymap.set('i', '<C-a>', '<Home>', { desc = 'Move the cursor to the beginning of the line' })
+vim.keymap.set('i', '<C-e>', '<End>', { desc = 'Move the cursor to the end of the line' })
+
+vim.keymap.set('c', 'nh', '<End>', { desc = 'Move the cursor to the end of the line' })
 -- [[ Basic Autocommands ]]
 --  See `:help lua-guide-autocommands`
 
@@ -755,11 +772,11 @@ require('lazy').setup({
               luasnip.expand_or_jump()
             end
           end, { 'i', 's' }),
-          ['<C-h>'] = cmp.mapping(function()
-            if luasnip.locally_jumpable(-1) then
-              luasnip.jump(-1)
-            end
-          end, { 'i', 's' }),
+          -- ['<C-h>'] = cmp.mapping(function()
+          --  if luasnip.locally_jumpable(-1) then
+          --    luasnip.jump(-1)
+          --  end
+          -- end, { 'i', 's' }),
 
           -- For more advanced Luasnip keymaps (e.g. selecting choice nodes, expansion) see:
           --    https://github.com/L3MON4D3/LuaSnip?tab=readme-ov-file#keymaps
@@ -877,7 +894,7 @@ require('lazy').setup({
   -- require 'kickstart.plugins.indent_line',
   -- require 'kickstart.plugins.lint',
   -- require 'kickstart.plugins.autopairs',
-  -- require 'kickstart.plugins.neo-tree',
+  require 'kickstart.plugins.neo-tree',
   -- require 'kickstart.plugins.gitsigns', -- adds gitsigns recommend keymaps
 
   -- NOTE: The import below can automatically add your own plugins, configuration, etc from `lua/custom/plugins/*.lua`
