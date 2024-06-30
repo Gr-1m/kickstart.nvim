@@ -194,6 +194,7 @@ vim.keymap.set('n', '<C-k>', '<C-w><C-k>', { desc = 'Move focus to the upper win
 -- Custom By Gr%1m
 
 -- vim.keymap.set('n', '<C-n>', ':Neotree<CR>', { desc = 'Neovim Files Tree' })
+vim.keymap.set('n', 'zz', '<Esc>:qa<CR>', { desc = 'Save the File and Exit Neovim' })
 vim.keymap.set('n', '<C-s>', '<Esc>:w<CR>', { desc = 'Save The File and Return to Normal' })
 vim.keymap.set('i', '<C-s>', '<Esc>:w<CR>', { desc = 'Save The File and Return to Normal' })
 -- Custom Save ShortcutKeys
