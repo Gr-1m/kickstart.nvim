@@ -3,5 +3,9 @@ test.sh
 .luarc.json
 nvim
 
+.github/
+.git/
 spell/
 lazy-lock.json
+.gitignore
+
