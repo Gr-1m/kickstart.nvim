@@ -195,6 +195,7 @@ vim.keymap.set('n', '<C-k>', '<C-w><C-k>', { desc = 'Move focus to the upper win
 
 -- vim.keymap.set('n', '<C-n>', ':Neotree<CR>', { desc = 'Neovim Files Tree' })
 vim.keymap.set('n', 'zz', '<Esc>:qa<CR>', { desc = 'Save the File and Exit Neovim' })
+vim.keymap.set('n', '<C-f>', '<Esc>:%!gofmt<CR>:w<CR>', { desc = 'Format the gofile Code' })
 vim.keymap.set('n', '<C-s>', '<Esc>:w<CR>', { desc = 'Save The File and Return to Normal' })
 vim.keymap.set('i', '<C-s>', '<Esc>:w<CR>', { desc = 'Save The File and Return to Normal' })
 -- Custom Save ShortcutKeys
@@ -207,7 +208,7 @@ vim.keymap.set('i', '<C-k>', '<Up>', { desc = 'Move the mouse downwards' })
 vim.keymap.set('i', '<C-a>', '<Home>', { desc = 'Move the cursor to the beginning of the line' })
 vim.keymap.set('i', '<C-e>', '<End>', { desc = 'Move the cursor to the end of the line' })
 
-vim.keymap.set('c', 'nh', '<End>', { desc = 'Move the cursor to the end of the line' })
+vim.keymap.set('c', 'nh', '<Esc>:nohl<CR>', { desc = 'Not Highlight' })
 -- [[ Basic Autocommands ]]
 --  See `:help lua-guide-autocommands`
 
@@ -891,7 +892,7 @@ require('lazy').setup({
   --  Here are some example plugins that I've included in the Kickstart repository.
   --  Uncomment any of the lines below to enable them (you will need to restart nvim).
   --
-  -- require 'kickstart.plugins.debug',
+  require 'kickstart.plugins.debug',
   -- require 'kickstart.plugins.indent_line',
   -- require 'kickstart.plugins.lint',
   -- require 'kickstart.plugins.autopairs',
