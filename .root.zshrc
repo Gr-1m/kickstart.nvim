@@ -58,6 +58,7 @@ setopt hist_verify            # show command with history expansion to user befo
 
 # force zsh to show the complete history
 alias history="history 0"
+export HISTTIMEFORMAT="%F %T"
 
 # configure `time` format
 TIMEFMT=$'\nreal\t%E\nuser\t%U\nsys\t%S\ncpu\t%P'
@@ -94,20 +95,19 @@ fi
 configure_prompt() {
     prompt_symbol=㉿
     # Skull emoji for root terminal
-    [ "$EUID" -eq 0 ] # && prompt_symbol=💀
+    [ "$EUID" -eq 0 ] && prompt_symbol=💀
     case "$PROMPT_ALTERNATIVE" in
         twoline)
-		PROMPT=$'%F{%(#.blue.green)}┌──${debian_chroot:+($debian_chroot)─}${VIRTUAL_ENV:+($(basename $VIRTUAL_ENV))─}(%B%F{%(#.red.blue)}Gr%#1m'$prompt_symbol$'xmKALI%b%F{%(#.blue.green)})-[%B%F{reset}%(6~.%-1~/…/%4~.%5~)%b%F{%(#.blue.green)}]\n%b%F{%(#.blue.green)}└─%F{%(#.red.magenta)}at %*%B%(#.%F{red}#>.%F{blue}$>)%b%F{reset} '
-            # PROMPT=$'%F{%(#.blue.green)}┌──${debian_chroot:+($debian_chroot)─}${VIRTUAL_ENV:+($(basename $VIRTUAL_ENV))─}(%B%F{%(#.red.blue)}%n'$prompt_symbol$'%m%b%F{%(#.blue.green)})-[%B%F{reset}%(6~.%-1~/…/%4~.%5~)%b%F{%(#.blue.green)}]\n└─%B%(#.%F{red}#.%F{blue}$)%b%F{reset} '
+            PROMPT=$'%F{%(#.blue.green)}┌──${debian_chroot:+($debian_chroot)─}${VIRTUAL_ENV:+($(basename $VIRTUAL_ENV))─}(%B%F{%(#.red.blue)}%n'$prompt_symbol$'xmKALI%b%F{%(#.blue.green)})-[%B%F{reset}%(6~.%-1~/…/%4~.%5~)%b%F{%(#.blue.green)}]\n└─%F{%(#.magenta.magenta)}at %*:%B%(#.%F{red}#>.%F{blue}$>)%b%F{reset} '
             # Right-side prompt with exit codes and background processes
             RPROMPT=$'%(?.. %? %F{red}%B⨯%b%F{reset})%(1j. %j %F{yellow}%B⚙%b%F{reset}.)'
             ;;
         oneline)
-            PROMPT=$'${debian_chroot:+($debian_chroot)}${VIRTUAL_ENV:+($(basename $VIRTUAL_ENV))}%B%F{%(#.red.blue)}%n@xmKALI%b%F{reset}:%B%F{%(#.blue.green)}%~%b%F{reset}%(#.#.$) '
+            PROMPT=$'${debian_chroot:+($debian_chroot)}${VIRTUAL_ENV:+($(basename $VIRTUAL_ENV))}%B%F{%(#.red.blue)}%n@%m%b%F{reset}:%B%F{%(#.blue.green)}%~%b%F{reset}%(#.#.$) '
             RPROMPT=
             ;;
         backtrack)
-            PROMPT=$'${debian_chroot:+($debian_chroot)}${VIRTUAL_ENV:+($(basename $VIRTUAL_ENV))}%B%F{red}%n@xmKALI%b%F{reset}:%B%F{blue}%~%b%F{reset}%(#.#.$) '
+            PROMPT=$'${debian_chroot:+($debian_chroot)}${VIRTUAL_ENV:+($(basename $VIRTUAL_ENV))}%B%F{red}%n@%m%b%F{reset}:%B%F{blue}%~%b%F{reset}%(#.#.$) '
             RPROMPT=
             ;;
     esac
@@ -145,9 +145,9 @@ if [ "$color_prompt" = yes ]; then
         ZSH_HIGHLIGHT_STYLES[globbing]=fg=blue,bold
         ZSH_HIGHLIGHT_STYLES[history-expansion]=fg=blue,bold
         ZSH_HIGHLIGHT_STYLES[command-substitution]=none
-        ZSH_HIGHLIGHT_STYLES[command-substitution-delimiter]=fg=magenta
+        ZSH_HIGHLIGHT_STYLES[command-substitution-delimiter]=fg=magenta,bold
         ZSH_HIGHLIGHT_STYLES[process-substitution]=none
-        ZSH_HIGHLIGHT_STYLES[process-substitution-delimiter]=fg=magenta
+        ZSH_HIGHLIGHT_STYLES[process-substitution-delimiter]=fg=magenta,bold
         ZSH_HIGHLIGHT_STYLES[single-hyphen-option]=fg=magenta
         ZSH_HIGHLIGHT_STYLES[double-hyphen-option]=fg=magenta
         ZSH_HIGHLIGHT_STYLES[back-quoted-argument]=none
@@ -174,7 +174,7 @@ if [ "$color_prompt" = yes ]; then
         ZSH_HIGHLIGHT_STYLES[cursor-matchingbracket]=standout
     fi
 else
-    PROMPT='${debian_chroot:+($debian_chroot)}%n@xmKALI:%~%(#.#.$) '
+    PROMPT='${debian_chroot:+($debian_chroot)}%n@%m:%~%(#.#.$) '
 fi
 unset color_prompt force_color_prompt
 
@@ -193,8 +193,7 @@ zle -N toggle_oneline_prompt
 # If this is an xterm set the title to user@host:dir
 case "$TERM" in
 xterm*|rxvt*|Eterm|aterm|kterm|gnome*|alacritty)
-    TERM_TITLE=$'\e]0;${debian_chroot:+($debian_chroot)}${VIRTUAL_ENV:+($(basename $VIRTUAL_ENV))}Gr%%1m@xmKALI: %~\a'
-    # change THE Terminal Title user@xmKALI:dir
+    TERM_TITLE=$'\e]0;${debian_chroot:+($debian_chroot)}${VIRTUAL_ENV:+($(basename $VIRTUAL_ENV))}%n@xmKALI: %~\a'
     ;;
 *)
     ;;
@@ -242,49 +241,18 @@ if [ -x /usr/bin/dircolors ]; then
     zstyle ':completion:*:*:kill:*:processes' list-colors '=(#b) #([0-9]#)*=0=01;31'
 fi
 
-# some more ls&personal aliases
+# some more ls aliases
 alias ll='ls -lh'
 alias la='ls -lAh'
 alias l='ls -CF'
-alias th='thunar'
+
 alias wget='wget -c'
-alias gitc='git clone'
 alias gogo='go run'
 alias pcat='pygmentize'
 
-alias vim='nvim'
-alias nv='nvim'
-
-alias cdwintool='cd /usr/share/windows-resources/'
-
-# thefuck configuration
-eval "$(thefuck --alias fuck)"
-
-# some aliases for easily-use
-alias cdexpdb='cd /usr/share/exploitdb/exploits/'
-
-# Proxy:
-#
-# Neusoft proxy
-Neu_user='zhao_hailong'
-# export http_proxy=http://$Neu_user@proxy.neusoft.com:8080
-# export https_proxy=https://$Neu_user@proxy.neusoft.com:8080
-
-# Netegn_VPN proxy
-Netegn_user='zhaohailong'
-# export http_proxy=http://$Netegn_user@p.netegn.com:3188
-# export https_proxy=http://$Netegn_user@p.netegn.com:3188
-
-# sangfor - wscan
-# export LD_LIBRARY_PATH=/var/tools/WebShellKill/WSKiller_sangfor/wscan_app/:$LD_LIBRARY_PATH
-
-
-# $PATH
-# My Pentest Tools Path
+# add $PATH
 export PATH="$PATH:/usr/pentools/bin"
-# com.alibaba.dingtalk debug:
-# export QT_SELECTION=path/to/qmake
-
+export PATH="$PATH:$HOME/.cargo/bin"
 
 # enable auto-suggestions based on the history
 if [ -f /usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh ]; then
@@ -297,11 +265,3 @@ fi
 if [ -f /etc/zsh_command_not_found ]; then
     . /etc/zsh_command_not_found
 fi
-
-# Jetbra script 
-alias gf=gf
-
-
-
-
-___MY_VMOPTIONS_SHELL_FILE="${HOME}/.jetbrains.vmoptions.sh"; if [ -f "${___MY_VMOPTIONS_SHELL_FILE}" ]; then . "${___MY_VMOPTIONS_SHELL_FILE}"; fi
