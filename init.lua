@@ -194,10 +194,14 @@ vim.keymap.set('n', '<C-k>', '<C-w><C-k>', { desc = 'Move focus to the upper win
 -- Custom By Gr%1m
 
 -- vim.keymap.set('n', '<C-n>', ':Neotree<CR>', { desc = 'Neovim Files Tree' })
+vim.keymap.set('n', 'gg', "''", { desc = 'Save the File and Exit Neovim' })
 vim.keymap.set('n', 'zz', '<Esc>:qa<CR>', { desc = 'Save the File and Exit Neovim' })
-vim.keymap.set('n', '<C-f>', '<Esc>:%!gofmt<CR>:w<CR>', { desc = 'Format the gofile Code' })
+vim.keymap.set('n', '<A-.>', '<Esc>:%!gofmt<CR>:w<CR>', { desc = 'Format the gofile Code' })
 vim.keymap.set('n', '<C-s>', '<Esc>:w<CR>', { desc = 'Save The File and Return to Normal' })
 vim.keymap.set('i', '<C-s>', '<Esc>:w<CR>', { desc = 'Save The File and Return to Normal' })
+vim.keymap.set('c', '<C-s>', '<Esc>', { desc = 'Return to Normal' })
+vim.keymap.set('v', '<C-s>', 'y<Esc>', { desc = 'Copy the Selected Text and Return to Normal' })
+-- Custom Some Code Format and Esc direct to Ctrl+s
 -- Custom Save ShortcutKeys
 
 vim.keymap.set('i', '<C-b>', '<Left>', { desc = 'Move the mouse backwards' })
@@ -752,7 +756,7 @@ require('lazy').setup({
 
           -- If you prefer more traditional completion keymaps,
           -- you can uncomment the following lines
-          --['<CR>'] = cmp.mapping.confirm { select = true },
+          -- ['<CR>'] = cmp.mapping.confirm { select = true },
           --['<Tab>'] = cmp.mapping.select_next_item(),
           --['<S-Tab>'] = cmp.mapping.select_prev_item(),
 
@@ -854,7 +858,7 @@ require('lazy').setup({
     'nvim-treesitter/nvim-treesitter',
     build = ':TSUpdate',
     opts = {
-      ensure_installed = { 'bash', 'c', 'diff', 'html', 'lua', 'luadoc', 'markdown', 'vim', 'vimdoc' },
+      ensure_installed = { 'bash', 'c', 'diff', 'html', 'lua', 'luadoc', 'markdown', 'vim', 'vimdoc', 'go', 'python', 'powershell' },
       -- Autoinstall languages that are not installed
       auto_install = true,
       highlight = {
@@ -893,9 +897,9 @@ require('lazy').setup({
   --  Uncomment any of the lines below to enable them (you will need to restart nvim).
   --
   require 'kickstart.plugins.debug',
-  -- require 'kickstart.plugins.indent_line',
+  require 'kickstart.plugins.indent_line',
   -- require 'kickstart.plugins.lint',
-  -- require 'kickstart.plugins.autopairs',
+  require 'kickstart.plugins.autopairs',
   require 'kickstart.plugins.neo-tree',
   -- require 'kickstart.plugins.gitsigns', -- adds gitsigns recommend keymaps
 
