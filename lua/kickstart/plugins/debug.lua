@@ -23,6 +23,7 @@ return {
 
     -- Add your own debuggers here
     'leoluz/nvim-dap-go',
+    'mfussenegger/nvim-jdtls',
     'mfussenegger/nvim-dap-python',
     'Willem-J-an/nvim-dap-powershell',
   },
@@ -48,6 +49,7 @@ return {
     }
 
     -- Basic debugging keymaps, feel free to change to your liking!
+    -- vim.keymap.set('n', '<A-.>', '<Esc>:%!gofmt<CR>:w<CR>', { desc = 'Format the gofile Code' })
     vim.keymap.set('n', '<F8>', dap.pause, { desc = 'Debug: Start/Continue' })
     vim.keymap.set('n', '<F9>', dap.continue, { desc = 'Debug: Start/Continue' })
     vim.keymap.set('n', '<F1>', dap.step_into, { desc = 'Debug: Step Into' })
@@ -87,7 +89,7 @@ return {
     vim.keymap.set('n', '<F4>', dapui.close, { desc = 'Debug: Close The dapui windows.' })
     dap.listeners.after.event_initialized['dapui_config'] = dapui.open
     -- dap.listeners.before.event_terminated['dapui_config'] = dapui.close
-    dap.listeners.before.event_exited['dapui_config'] = dapui.close
+    -- dap.listeners.before.event_exited['dapui_config'] = dapui.close
 
     -- Install golang specific config
     require('dap-go').setup {
@@ -97,6 +99,8 @@ return {
         detached = vim.fn.has 'win32' == 0,
       },
     }
+
+    vim.keymap.set('n', '<F10>', '<Esc>:%!go run<CR>', { desc = 'Try run the gofile Code' })
 
     -- Install python specific config
     require('dap-python').setup 'python'
