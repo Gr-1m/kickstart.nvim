@@ -209,8 +209,8 @@ vim.keymap.set('i', '<C-j>', '<Down>', { desc = 'Move the mouse upwards  ' })
 vim.keymap.set('i', '<C-f>', '<Right>', { desc = 'Move the mouse forwards ' })
 vim.keymap.set('i', '<C-k>', '<Up>', { desc = 'Move the mouse downwards' })
 
-vim.keymap.set('i', '<C-a>', '<Home>', { desc = 'Move the cursor to the beginning of the line' })
-vim.keymap.set('i', '<C-e>', '<End>', { desc = 'Move the cursor to the end of the line' })
+vim.keymap.set('i', '<C-a>', '<Esc>I', { desc = 'Move the cursor to the beginning of the line' })
+vim.keymap.set('i', '<C-e>', '<Esc>A', { desc = 'Move the cursor to the end of the line' })
 
 vim.keymap.set('c', 'nh', '<Esc>:nohl<CR>', { desc = 'Not Highlight' })
 -- [[ Basic Autocommands ]]
