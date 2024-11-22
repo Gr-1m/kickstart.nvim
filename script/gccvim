@@ -1,0 +1,36 @@
+#!/bin/bash
+# Author: Gr%1m
+
+# 检查参数是否提供
+if [ $# -ne 1 ]; then
+    echo "Usage: $0 <source_file>"
+    exit 1
+fi
+
+# 初始化c文件 使用 Vim 编辑目标文件
+if [ ! -f $1 ]; then
+    echo -E "#include<stdio.h>
+
+int main(){
+
+    printf(\"------- Hello,StartYourC -------\\n\\n\");
+
+    return 0;
+}" > $1;
+
+fi
+
+vim $1
+
+# 使用 GCC 编译目标文件为可执行文件
+gcc -g -o ${1%.c} $1
+
+# 如果编译成功，则运行可执行文件
+if [ $? -eq 0 ]; then
+
+    ./$(basename ${1%.c});
+    # rm ./$(basename ${1%.c});
+    # 如果希望编译运行后删除可执行文件 -> 则删除上行注释符号
+fi
+
+

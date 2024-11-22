@@ -196,13 +196,14 @@ vim.keymap.set('n', '<C-k>', '<C-w><C-k>', { desc = 'Move focus to the upper win
 -- vim.keymap.set('n', '<C-n>', ':Neotree<CR>', { desc = 'Neovim Files Tree' })
 vim.keymap.set('n', 'gg', "''", { desc = 'Save the File and Exit Neovim' })
 vim.keymap.set('n', 'zz', '<Esc>:qa<CR>', { desc = 'Save the File and Exit Neovim' })
-vim.keymap.set('n', '<A-.>', '<Esc>:%!gofmt<CR>:w<CR>', { desc = 'Format the gofile Code' })
 vim.keymap.set('n', '<C-s>', '<Esc>:w<CR>', { desc = 'Save The File and Return to Normal' })
 vim.keymap.set('i', '<C-s>', '<Esc>:w<CR>', { desc = 'Save The File and Return to Normal' })
-vim.keymap.set('c', '<C-s>', '<Esc>', { desc = 'Return to Normal' })
+vim.keymap.set('c', '<C-s>', '<Esc>:w!<CR>', { desc = 'Return to Normal' })
 vim.keymap.set('v', '<C-s>', 'y<Esc>', { desc = 'Copy the Selected Text and Return to Normal' })
--- Custom Some Code Format and Esc direct to Ctrl+s
--- Custom Save ShortcutKeys
+-- vim.keymap.set('n', '<A-.>', '<Esc>:%!gofmt<CR>:w<CR>', { desc = 'Format the gofile Code' })
+
+-- Custom Some Code Format and Esc direct to Ctrl+S
+-- Custom Save Short Cut Keys
 
 vim.keymap.set('i', '<C-b>', '<Left>', { desc = 'Move the mouse backwards' })
 vim.keymap.set('i', '<C-j>', '<Down>', { desc = 'Move the mouse upwards  ' })
@@ -213,7 +214,7 @@ vim.keymap.set('i', '<C-a>', '<Esc>I', { desc = 'Move the cursor to the beginnin
 vim.keymap.set('i', '<C-e>', '<Esc>A', { desc = 'Move the cursor to the end of the line' })
 
 vim.keymap.set('c', 'nh', '<Esc>:nohl<CR>', { desc = 'Not Highlight' })
--- [[ Basic Autocommands ]]
+-- [[ Basic Auto Commands ]]
 --  See `:help lua-guide-autocommands`
 
 -- Highlight when yanking (copying) text

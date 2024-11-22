@@ -1,0 +1,9 @@
+#!/bin/bash
+
+# sudo chmod u+s /usr/bin/nvim
+# unalias v=nvim
+
+# while true;do
+sudo setfacl -m u:kaming:rw -R /home/kaming/.local/state/nvim/shada/
+# sleep 1
+# done

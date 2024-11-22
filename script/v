@@ -1,0 +1,5 @@
+#!/bin/bash
+/usr/pentools/debug_sh/fix_NeoVim_toroot
+
+/usr/bin/nvim $@
+/usr/pentools/debug_sh/fix_NeoVim_toroot
